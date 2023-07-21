@@ -1,5 +1,8 @@
 package vttp2023.batch3.assessment.paf.bookings.controllers;
 
+import org.springframework.stereotype.Controller;
+
+@Controller
 public class ListingsController {
 
 	//TODO: Task 2

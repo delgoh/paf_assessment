@@ -1,0 +1,1 @@
+mongoimport -h localhost:27017 -d paf_assessment -c listings --type=json listings.json
