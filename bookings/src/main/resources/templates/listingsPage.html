@@ -6,6 +6,34 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Listings for SINGAPORE!</h1>
+    <h1>Listings for <span data-th-text="${searchedCountry}"></span></h1>
+    <a data-th-href="@{/}">Back</a>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-th-if="${accomListings.empty}">
+                <td colspan="4"> No Listings Available </td>
+            </tr>
+            <tr data-th-each="accomListing : ${accomListings}">
+                <td><span data-th-text="${accomListing.address}"></span></td>
+                <td><span data-th-text="${accomListing.price}"></span></td>
+                <td><img data-th-src="${accomListing.imageUrl}"></span></td>
+                <td>
+                    <form action="#" data-th-action="@{/accommodation/{accomId}(accomId = ${accomListing.accommodationId})}" method="get">
+                        <input type="submit" value="Details"/>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
 </body>
 </html>

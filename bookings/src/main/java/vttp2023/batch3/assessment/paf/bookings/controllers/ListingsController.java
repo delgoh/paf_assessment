@@ -6,8 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.validation.Valid;
 import vttp2023.batch3.assessment.paf.bookings.models.SearchRequest;
@@ -34,6 +32,13 @@ public class ListingsController {
 			model.addAttribute("countriesList", listingsService.getAllCountries());
 			return "landingPage";
 		}
+		model.addAttribute("searchedCountry", searchRequest.getCountry());
+		model.addAttribute("accomListings", listingsService.getRequestedListings(
+			searchRequest.getCountry(),
+			searchRequest.getPersonCount(),
+			searchRequest.getPriceMin(),
+			searchRequest.getPriceMax()
+		));
 		return "listingsPage";
 	}
 
