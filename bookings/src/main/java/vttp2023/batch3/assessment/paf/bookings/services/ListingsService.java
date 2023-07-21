@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vttp2023.batch3.assessment.paf.bookings.models.AccomDetails;
 import vttp2023.batch3.assessment.paf.bookings.models.AccomSummary;
 import vttp2023.batch3.assessment.paf.bookings.repositories.ListingsRepository;
 
@@ -24,8 +25,10 @@ public class ListingsService {
 		return listingsRepository.getRequestedListings(country, personCount, priceMin, priceMax);
 	}
 
-
 	//TODO: Task 4
+	public AccomDetails getAccomDetailsById(String accomId) {
+		return listingsRepository.getAccomDetailsById(accomId);
+	}
 	
 
 	//TODO: Task 5

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class AccomSummary {
 
     @Field("_id")
-    private Integer accommodationId;
+    private String accommodationId;
 
     @Field("address.street")
     private String address;

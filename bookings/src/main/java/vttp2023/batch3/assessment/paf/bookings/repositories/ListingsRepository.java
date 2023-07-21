@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import vttp2023.batch3.assessment.paf.bookings.models.AccomDetails;
 import vttp2023.batch3.assessment.paf.bookings.models.AccomSummary;
 
 @Repository
@@ -29,7 +30,8 @@ public class ListingsRepository {
 	
 
 	//TODO: Task 3
-	// db.listings.find({
+	// db.listings.find(
+	// {
 	// 		"address.country": <country>,
 	// 		accommodates: {$gte: <personCount>},
 	// 		price: {$gte: <priceMin>, $lte: <priceMax>}
@@ -53,6 +55,23 @@ public class ListingsRepository {
 
 
 	//TODO: Task 4
+	// db.listings.find(
+	// 		{_id: "16134812"},
+	// 		{
+	// 			description: 1, "images.picture_url": 1, price: 1, amenities: 1,
+	// 			address: {street: 1, suburb: 1, country: 1}
+	// 		}
+	// );
+	public AccomDetails getAccomDetailsById(String accomId) {
+		Query query = Query.query(
+			Criteria.where("_id").is(accomId)
+		);
+		query.fields()
+			.include("description", "images.picture_url", "price", "amenities")
+			.include("address.street", "address.suburb", "address.country");
+
+		return mongoTemplate.findOne(query, AccomDetails.class, LISTINGS_COLLECTION);
+	}
 	
 
 	//TODO: Task 5
