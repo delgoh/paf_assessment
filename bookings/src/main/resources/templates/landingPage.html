@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Search Our Accommodations</h1>
+    <form action="#" data-th-action="@{/search}" method="get" data-th-object="${searchRequest}">
+        <label>Country: </label>
+        <select data-th-field="*{country}">
+            <option data-th-each="c : ${countriesList}" data-th-value="${c}" data-th-text="${c}"></option>
+        </select>
+        <span data-th-if="${#fields.hasErrors('country')}" data-th-errors="*{country}" style="color: red"></span>
+        <br>
+        <label>Number of people: </label>
+        <input type="text" data-th-field="*{personCount}" />
+        <span data-th-if="${#fields.hasErrors('personCount')}" data-th-errors="*{personCount}" style="color: red"></span>
+        <br>
+        <label>Price Range: </label>
+        <br>
+        <label>Min: </label>
+        <input type="text" data-th-field="*{priceMin}" />
+        <span data-th-if="${#fields.hasErrors('priceMin')}" data-th-errors="*{priceMin}" style="color: red"></span>
+        <br>
+        <label>Max: </label>
+        <input type="text" data-th-field="*{priceMax}" />
+        <span data-th-if="${#fields.hasErrors('priceMax')}" data-th-errors="*{priceMax}" style="color: red"></span>
+        <br>
+        <br>
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>
