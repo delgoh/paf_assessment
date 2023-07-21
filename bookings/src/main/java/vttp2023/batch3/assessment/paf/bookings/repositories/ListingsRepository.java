@@ -8,16 +8,24 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import vttp2023.batch3.assessment.paf.bookings.models.AccomDetails;
 import vttp2023.batch3.assessment.paf.bookings.models.AccomSummary;
+import vttp2023.batch3.assessment.paf.bookings.models.Booking;
+import vttp2023.batch3.assessment.paf.bookings.models.Reservation;
 
 @Repository
 public class ListingsRepository {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	private final String LISTINGS_COLLECTION = "listings";
 
@@ -75,6 +83,22 @@ public class ListingsRepository {
 	
 
 	//TODO: Task 5
+	private final String getOccupancyByIdSql = "select * from acc_occupancy where acc_id = ?";
+	private final String insertReservationSql = "insert into reservations values (?, ?, ?, ?, ?, ?)";
+	private final String updateOccupancyByIdSql = "update acc_occupancy set vacancy = ? where acc_id = ?";
 
+	public Integer getOccupancyById(String accId) {
+		final SqlRowSet rs = jdbcTemplate.queryForRowSet(getOccupancyByIdSql, accId);
+		rs.next();
+		return rs.getInt("vacancy");
+	}
+
+	public Boolean insertReservation(String accId, String resvId, Booking booking) {
+		return jdbcTemplate.update(insertReservationSql, resvId, booking.getName(), booking.getEmail(), accId, booking.getArrivalDate(), booking.getStayDuration()) > 0;
+	}
+
+	public Boolean updateVacancy(String accId, Integer updatedVacancy) {
+		return jdbcTemplate.update(updateOccupancyByIdSql, updatedVacancy, accId) > 0;
+	}
 
 }

@@ -1,8 +1,6 @@
 package vttp2023.batch3.assessment.paf.bookings.models;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,15 +9,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Booking {
+public class Reservation {
+    
+    
+    private String resv_id;
 
     private String name;
 
     private String email;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date arrivalDate;
+    private String acc_id;
 
-    private Integer stayDuration;
+    private Date arrival_date;
+
+    private Integer duration;
 
 }
